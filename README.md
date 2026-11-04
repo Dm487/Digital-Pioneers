@@ -1,58 +1,220 @@
 # Digital Pioneers Stockroom
 
-Digital Pioneers Stockroom is a lightweight inventory and sales application built with Java 17, Javalin 5, SQLite, Maven, and a responsive vanilla HTML/CSS/JavaScript interface.
+**A lightweight Inventory and Sales Management System for Small Businesses.**
+
+Digital Pioneers Stockroom is an inventory and sales management application designed to help small businesses manage products, monitor stock levels, record sales, and track inventory movements efficiently.
+
+Built with **Java 17, Javalin 5, SQLite, Maven, and Vanilla HTML, CSS, and JavaScript**, the application provides a responsive interface and a lightweight database solution suitable for affordable computers and devices.
+
+---
+
+## Project Team
+
+**Group Name:** Digital Pioneers
+
+| No. | Student Name | Student ID |
+|:---:|---|:---:|
+| 1 | Moses Phiri | 2410103 |
+| 2 | Davies Mubambe | 2410052 |
+| 3 | David Chisenga | 2410348 |
+| 4 | [Fourth Member] | [Student ID] |
+
+---
+
+## Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Java 17 | Core application logic |
+| Javalin 5 | Backend web framework and REST API |
+| SQLite | Lightweight database |
+| Maven | Dependency and build management |
+| HTML5 | Frontend structure |
+| CSS3 | Styling and responsive layouts |
+| JavaScript | Frontend functionality and API communication |
+
+---
+
+## Key Features
+
+- **Product Management:** Register, view, search, update, and delete products.
+- **Inventory Tracking:** Monitor available stock quantities.
+- **Sales Management:** Record sales and automatically deduct stock.
+- **Supplier Management:** Maintain supplier information.
+- **Low-Stock Alerts:** Identify products that have reached or fallen below their reorder thresholds.
+- **Dashboard:** View inventory statistics, sales figures, recent transactions, and stock alerts.
+- **Stock Movement History:** Track stock additions and deductions.
+- **Database Persistence:** Store application records in SQLite.
+
+---
 
 ## Requirements
 
-- Java 17 or newer
-- Maven 3.8 or newer
+Before running the application, ensure you have installed:
 
-## Run locally
+- Java Development Kit (JDK) 17 or newer.
+- Apache Maven 3.8 or newer.
+
+Verify your installations:
+
+```bash
+java -version
+mvn -version
+```
+
+---
+
+## Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+```
+
+Navigate into the project directory:
+
+```bash
+cd Digital-Pioneers
+```
+
+### 2. Configure Environment Variables
+
+In PowerShell, create your local environment configuration:
 
 ```powershell
-if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+if (-not (Test-Path .env)) {
+    Copy-Item .env.example .env
+}
+```
+
+### 3. Build the Application
+
+Run:
+
+```bash
 mvn clean verify
+```
+
+This cleans the previous build, compiles the application, runs verification, and packages the application.
+
+### 4. Start the Application
+
+```bash
 java -jar target/small-business-stock-system-1.0.0.jar
 ```
 
-Open [http://localhost:7070](http://localhost:7070). The SQLite database is created automatically at `data/stockroom.db` on first launch, and the schema is initialized/migrated without deleting existing product records. Set `STOCK_DB_PATH` in `.env` or the process environment to use another database file. Set `PORT` to change the default port `7070`.
+### 5. Open the Application
 
-The application uses a single pooled SQLite connection and enables foreign-key enforcement, a write-ahead log, and a 10-second busy timeout. Keep the database file and its `-wal`/`-shm` companions together when backing up a running database; use SQLite's online backup API or stop the application first for a file copy.
+Visit:
 
-## Dashboard definitions
+**http://localhost:7070**
 
-- **Total products:** number of product records.
-- **Units in stock:** sum of current product quantities.
-- **Low-stock products:** number of products whose quantity is less than or equal to their reorder threshold; this includes out-of-stock products.
-- **Total sales:** lifetime gross value of recorded sales, before returns or other adjustments. The application does not currently record returns.
-- **Transactions:** lifetime count of recorded sales.
+The SQLite database is automatically created at:
 
-Dashboard figures are calculated from the database, not seeded or hardcoded. Empty tables produce zero totals and explicit empty states.
+```text
+data/stockroom.db
+```
 
-## HTTP API
+The database schema is initialized and migrated automatically on first launch.
 
-Responses are JSON. Invalid request data returns `400`, missing records return `404`, stock conflicts and database constraint conflicts return `409`, and unexpected failures return `500` without exposing internal exception details.
+---
 
-| Method | Path | Purpose |
+## Configuration
+
+The application supports the following environment variables:
+
+| Variable | Default | Description |
+|---|---|---|
+| `PORT` | `7070` | Application server port |
+| `STOCK_DB_PATH` | `data/stockroom.db` | SQLite database file location |
+
+You can modify these values in `.env` or through your system's process environment.
+
+### Database Configuration
+
+The application uses SQLite with:
+
+- Foreign-key enforcement.
+- Write-ahead logging (WAL).
+- A 10-second busy timeout.
+- A single pooled SQLite connection.
+
+**Important:** When backing up a running database, keep the database file and its associated `-wal` and `-shm` files together. Alternatively, stop the application before copying the database file or use SQLite's online backup API.
+
+---
+
+## Dashboard Statistics
+
+The dashboard calculates its statistics directly from the database.
+
+| Statistic | Definition |
+|---|---|
+| Total Products | Number of registered product records. |
+| Units in Stock | Sum of the current quantities of all products. |
+| Low-Stock Products | Products whose quantities are less than or equal to their reorder thresholds, including out-of-stock products. |
+| Total Sales | Lifetime gross value of recorded sales before returns or adjustments. |
+| Transactions | Lifetime number of recorded sales. |
+
+Empty database tables produce zero totals and explicit empty states rather than hardcoded sample statistics.
+
+**Note:** The application does not currently record sales returns.
+
+---
+
+## HTTP REST API
+
+The backend exposes a REST API that communicates using JSON.
+
+### API Endpoints
+
+#### System
+
+| Method | Endpoint | Description |
 |---|---|---|
 | GET | `/api/health` | Application and SQLite health check |
-| GET | `/api/dashboard` | Real statistics, recent sales, alerts, and stock movements |
-| GET | `/api/products?q=term` | List/search products |
-| POST | `/api/products` | Create product |
-| GET | `/api/products/{id}` | View product details |
-| PUT | `/api/products/{id}` | Edit product details |
-| DELETE | `/api/products/{id}` | Delete product with no sale or movement history |
-| GET, POST | `/api/suppliers` | List or create suppliers |
-| PUT | `/api/suppliers/{id}` | Edit supplier |
-| GET | `/api/inventory` | Current product quantities |
-| POST | `/api/stock/restock` | Receive stock and record a movement |
-| GET | `/api/stock/movements?limit=50` | Recent stock movement history (limit 1–200) |
-| GET | `/api/alerts/low-stock` | Products at or below reorder threshold |
-| GET | `/api/sales` | Latest 100 transactions |
-| GET | `/api/sales/{id}` | Transaction details |
-| POST | `/api/sales` | Create a sale, deduct stock, and record movements atomically |
+| GET | `/api/dashboard` | Dashboard statistics, recent sales, alerts, and stock movements |
 
-Product request example:
+#### Products
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/products?q=term` | List and search products |
+| POST | `/api/products` | Create a product |
+| GET | `/api/products/{id}` | View product details |
+| PUT | `/api/products/{id}` | Update product details |
+| DELETE | `/api/products/{id}` | Delete a product without sale or movement history |
+
+#### Suppliers
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/suppliers` | List suppliers |
+| POST | `/api/suppliers` | Create a supplier |
+| PUT | `/api/suppliers/{id}` | Update supplier details |
+
+#### Inventory and Stock
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/inventory` | View current product quantities |
+| POST | `/api/stock/restock` | Receive stock and record a movement |
+| GET | `/api/stock/movements?limit=50` | View recent stock movement history |
+| GET | `/api/alerts/low-stock` | Retrieve low-stock products |
+
+The stock movement history endpoint supports limits from 1 to 200 records.
+
+#### Sales
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/sales` | Retrieve the latest 100 transactions |
+| GET | `/api/sales/{id}` | View transaction details |
+| POST | `/api/sales` | Record a sale, deduct stock, and record movements atomically |
+
+### Example API Requests
+
+**Create a Product**
 
 ```json
 {
@@ -66,20 +228,94 @@ Product request example:
 }
 ```
 
-Sale request example:
+**Record a Sale**
 
 ```json
 {
   "items": [
-    { "productId": 1, "quantity": 2 }
+    {
+      "productId": 1,
+      "quantity": 2
+    }
   ]
 }
 ```
 
-Sale prices are read from the database. Sale records, sale items, stock deductions, and stock movements commit in a single transaction. If a sale line fails validation or does not have enough stock, the transaction is rolled back.
+### API Response Codes
 
-## Data migration and deployment
+| Status Code | Meaning |
+|---|---|
+| `200` | Request successful |
+| `400` | Invalid request data |
+| `404` | Requested record not found |
+| `409` | Stock conflict or database constraint conflict |
+| `500` | Unexpected server error |
 
-The checked project did not contain a SQLite file. The database initializer can add Stockroom columns to an older SQLite `products` table that has `price`, `quantity`, and `min_stock_level`, preserving those product rows and carrying their price and reorder level forward. It does not import data from the previous PostgreSQL/Supabase configuration. Existing PostgreSQL data must be exported and deliberately migrated if it needs to be retained; the application does not delete or alter that external database.
+Unexpected server errors return responses without exposing internal exception details.
 
-This application does not implement authentication or authorization. It is suitable for local testing, not public production deployment. Before any public deployment, add an appropriate authentication/authorization layer, TLS, restricted network access, production logging/monitoring, and verified backups. Do not expose the database file or place it in a public static directory.
+### Sales Transaction Integrity
+
+Sales are processed using database transactions.
+
+The following operations are committed together:
+
+1. Sale record creation.
+2. Sale item recording.
+3. Product stock deduction.
+4. Stock movement recording.
+
+If validation fails or there is insufficient stock, the entire transaction is rolled back to prevent inconsistent inventory records.
+
+Sale prices are retrieved from the database rather than accepted from the client.
+
+---
+
+## Data Migration
+
+The checked project did not contain an existing SQLite database file.
+
+The database initializer supports migrating an older SQLite `products` table containing:
+
+- `price`
+- `quantity`
+- `min_stock_level`
+
+It can add the required Stockroom columns while preserving existing product records and carrying forward their prices and reorder levels.
+
+**PostgreSQL/Supabase Migration**
+
+The application does not automatically import data from the previous PostgreSQL/Supabase configuration.
+
+If existing PostgreSQL data needs to be retained, it must be exported and deliberately migrated into SQLite. The application does not delete or alter the external PostgreSQL database.
+
+---
+
+## Security and Deployment
+
+**Current limitation:** The application does not implement authentication or authorization.
+
+It is currently intended for local testing and development, not public production deployment.
+
+Before deploying publicly, the following improvements are required:
+
+- Implement authentication and authorization.
+- Configure HTTPS/TLS.
+- Restrict network access appropriately.
+- Introduce production logging and monitoring.
+- Establish verified database backup procedures.
+- Protect database files from public access.
+
+Never expose the SQLite database file or place it inside a publicly accessible static directory.
+
+---
+
+## Project Purpose
+
+Digital Pioneers Stockroom aims to provide small businesses with an affordable and straightforward way to manage their inventory and sales.
+
+By replacing disorganised manual record-keeping with a digital inventory management solution, the project seeks to improve stock visibility, sales tracking, and day-to-day business operations.
+
+---
+
+**Developed by Digital Pioneers**  
+*Object-Oriented Programming (OOP) Group Project*
