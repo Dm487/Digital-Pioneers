@@ -1,0 +1,11 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+.env
+*.db
+data/
+*.db-shm
+*.db-wal
+*.iml
+.idea/
+.vscode/
+*.log

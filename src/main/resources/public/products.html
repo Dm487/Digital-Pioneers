@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manage your product catalogue">
+  <title>Products | Digital Pioneers Stockroom</title><link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/">Digital Pioneers<span>STOCKROOM</span></a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navigation" aria-label="Main navigation"><a href="/"><span class="nav-icon" aria-hidden="true">⌂</span>Overview</a><a class="active" href="/products.html"><span class="nav-icon" aria-hidden="true">▦</span>Products</a><a href="/inventory.html"><span class="nav-icon" aria-hidden="true">▤</span>Inventory</a><a href="/sales.html"><span class="nav-icon" aria-hidden="true">↗</span>Sales</a><a href="/alerts.html"><span class="nav-icon" aria-hidden="true">!</span>Stock alerts</a><a href="/suppliers.html"><span class="nav-icon" aria-hidden="true">♧</span>Suppliers</a></nav>
+  </header>
+  <main class="page">
+    <div class="page-heading"><div><p class="eyebrow">CATALOGUE</p><h1>Products</h1><p class="muted">Manage product details, pricing and reorder levels.</p></div><a class="button secondary" href="/inventory.html">View inventory</a></div>
+    <div id="product-error" class="notice error" role="alert" hidden></div><div id="product-success" class="notice success" role="status" hidden></div>
+    <section class="panel">
+      <div class="panel-heading"><div><h2 id="product-form-title">Add a product</h2><p class="muted">Fields marked required must be completed.</p></div><button id="cancel-edit" class="button secondary small" type="button" hidden>Cancel edit</button></div>
+      <form id="product-form" class="form-grid">
+        <label>Product name *<input name="name" maxlength="160" required></label>
+        <label>SKU *<input name="sku" maxlength="64" required></label>
+        <label>Unit price *<input name="unitPrice" type="number" min="0" step="0.01" required></label>
+        <label>Starting quantity *<input name="quantity" type="number" min="0" step="1" value="0" required><span id="quantity-help" class="field-help">For edits, use Inventory to change stock.</span></label>
+        <label>Low-stock alert at<input name="lowStockThreshold" type="number" min="0" step="1" value="5" required></label>
+        <label>Supplier<select name="supplierId" id="supplier-select"><option value="">No supplier</option></select></label>
+        <label class="wide">Description<textarea name="description" rows="3" maxlength="10000"></textarea></label>
+        <div class="form-actions"><button id="save-product" class="button primary" type="submit">Add product</button></div>
+      </form>
+    </section>
+    <section class="panel">
+      <div class="panel-heading panel-tools"><div><h2>Product list</h2><p class="muted"><span id="product-total">0</span> products</p></div><input id="product-search" class="search-input" type="search" placeholder="Search name or SKU" aria-label="Search products"><label class="compact-label">Stock status<select id="product-filter"><option value="all">All products</option><option value="low">Low stock</option><option value="out">Out of stock</option><option value="available">Available</option></select></label><label class="compact-label">Sort by<select id="product-sort"><option value="name">Name</option><option value="sku">SKU</option><option value="quantity">Quantity</option><option value="price">Price</option></select></label></div>
+      <div class="table-wrap"><table><thead><tr><th>Product</th><th>SKU</th><th class="numeric">Unit price</th><th class="numeric">In stock</th><th class="numeric">Reorder at</th><th>Status</th><th>Supplier</th><th>Actions</th></tr></thead><tbody id="product-rows"><tr><td colspan="8" class="empty">Loading products…</td></tr></tbody></table></div>
+    </section>
+    <dialog id="product-dialog" class="detail-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form><div id="product-details"></div></dialog>
+  </main>
+  <footer class="footer">Digital Pioneers Stockroom <span>Inventory, made clear.</span></footer>
+  <script src="/js/api.js"></script><script src="/js/products.js"></script>
+</body>
+</html>

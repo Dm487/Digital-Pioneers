@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Record and review sales">
+  <title>Sales | Digital Pioneers Stockroom</title><link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/">Digital Pioneers<span>STOCKROOM</span></a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navigation" aria-label="Main navigation"><a href="/"><span class="nav-icon" aria-hidden="true">⌂</span>Overview</a><a href="/products.html"><span class="nav-icon" aria-hidden="true">▦</span>Products</a><a href="/inventory.html"><span class="nav-icon" aria-hidden="true">▤</span>Inventory</a><a class="active" href="/sales.html"><span class="nav-icon" aria-hidden="true">↗</span>Sales</a><a href="/alerts.html"><span class="nav-icon" aria-hidden="true">!</span>Stock alerts</a><a href="/suppliers.html"><span class="nav-icon" aria-hidden="true">♧</span>Suppliers</a></nav>
+  </header>
+  <main class="page">
+    <div class="page-heading"><div><p class="eyebrow">TRANSACTIONS</p><h1>Sales</h1><p class="muted">Record a sale; inventory updates when the transaction is confirmed.</p></div></div>
+    <div id="sales-error" class="notice error" role="alert" hidden></div><div id="sales-success" class="notice success" role="status" hidden></div>
+    <section class="panel">
+      <div class="panel-heading"><div><h2>Record a sale</h2><p class="muted">Add one or more products to this transaction.</p></div></div>
+      <form id="sale-form"><div id="sale-lines" class="sale-lines"><p class="empty">Loading products…</p></div><div class="sale-controls"><button id="add-sale-line" class="button secondary" type="button" disabled>Add another item</button><strong>Estimated total: <span id="sale-total">0.00</span></strong></div><button class="button primary" type="submit" disabled>Review and record sale</button></form>
+    </section>
+    <section class="panel">
+      <div class="panel-heading"><div><h2>Recent transactions</h2><p class="muted">Showing the latest 100 sales.</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Sale reference</th><th>Date and time</th><th>Items</th><th class="numeric">Total</th><th></th></tr></thead><tbody id="sales-rows"><tr><td colspan="5" class="empty">Loading sales…</td></tr></tbody></table></div>
+    </section>
+    <dialog id="sale-dialog" class="detail-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form><div id="sale-details"></div></dialog>
+  </main>
+  <footer class="footer">Digital Pioneers Stockroom <span>Inventory, made clear.</span></footer>
+  <script src="/js/api.js"></script><script src="/js/sales.js"></script>
+</body>
+</html>

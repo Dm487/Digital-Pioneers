@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Products requiring a stock reorder">
+  <title>Stock alerts | Digital Pioneers Stockroom</title><link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/">Digital Pioneers<span>STOCKROOM</span></a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navigation" aria-label="Main navigation"><a href="/"><span class="nav-icon" aria-hidden="true">⌂</span>Overview</a><a href="/products.html"><span class="nav-icon" aria-hidden="true">▦</span>Products</a><a href="/inventory.html"><span class="nav-icon" aria-hidden="true">▤</span>Inventory</a><a href="/sales.html"><span class="nav-icon" aria-hidden="true">↗</span>Sales</a><a class="active" href="/alerts.html"><span class="nav-icon" aria-hidden="true">!</span>Stock alerts</a><a href="/suppliers.html"><span class="nav-icon" aria-hidden="true">♧</span>Suppliers</a></nav>
+  </header>
+  <main class="page">
+    <div class="page-heading"><div><p class="eyebrow">REORDER REMINDERS</p><h1>Stock alerts</h1><p class="muted">Products at or below their configured reorder quantity.</p></div><a class="button secondary" href="/inventory.html">Go to inventory</a></div>
+    <div id="alerts-error" class="notice error" role="alert" hidden></div>
+    <section class="panel">
+      <div class="panel-heading"><div><h2>Products to check</h2><p class="muted"><span id="alert-total">0</span> products need attention</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Product</th><th>SKU</th><th class="numeric">In stock</th><th class="numeric">Reorder at</th><th>Status</th><th>Supplier</th><th></th></tr></thead><tbody id="alert-rows"><tr><td colspan="7" class="empty">Loading alerts…</td></tr></tbody></table></div>
+    </section>
+  </main>
+  <footer class="footer">Digital Pioneers Stockroom <span>Inventory, made clear.</span></footer>
+  <script src="/js/api.js"></script><script src="/js/alerts.js"></script>
+</body>
+</html>

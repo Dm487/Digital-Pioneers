@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manage product suppliers">
+  <title>Suppliers | Digital Pioneers Stockroom</title><link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/">Digital Pioneers<span>STOCKROOM</span></a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navigation" aria-label="Main navigation"><a href="/"><span class="nav-icon" aria-hidden="true">⌂</span>Overview</a><a href="/products.html"><span class="nav-icon" aria-hidden="true">▦</span>Products</a><a href="/inventory.html"><span class="nav-icon" aria-hidden="true">▤</span>Inventory</a><a href="/sales.html"><span class="nav-icon" aria-hidden="true">↗</span>Sales</a><a href="/alerts.html"><span class="nav-icon" aria-hidden="true">!</span>Stock alerts</a><a class="active" href="/suppliers.html"><span class="nav-icon" aria-hidden="true">♧</span>Suppliers</a></nav>
+  </header>
+  <main class="page">
+    <div class="page-heading"><div><p class="eyebrow">BUSINESS CONTACTS</p><h1>Suppliers</h1><p class="muted">Keep your supplier details together and link them to products.</p></div></div>
+    <div id="supplier-error" class="notice error" role="alert" hidden></div><div id="supplier-success" class="notice success" role="status" hidden></div>
+    <section class="panel">
+      <div class="panel-heading"><div><h2 id="supplier-form-title">Add a supplier</h2><p class="muted">Save supplier contact details for product records.</p></div><button id="supplier-cancel" class="button secondary small" type="button" hidden>Cancel edit</button></div>
+      <form id="supplier-form" class="form-grid">
+        <label>Business name *<input name="name" maxlength="120" required></label>
+        <label>Contact name<input name="contactName" maxlength="120"></label>
+        <label>Email<input name="email" type="email" maxlength="254"></label>
+        <label>Phone<input name="phone" type="tel" maxlength="40"></label>
+        <div class="form-actions"><button id="supplier-save" class="button primary" type="submit">Add supplier</button></div>
+      </form>
+    </section>
+    <section class="panel">
+      <div class="panel-heading"><div><h2>Supplier directory</h2><p class="muted"><span id="supplier-count">0</span> suppliers</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Business</th><th>Contact</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead><tbody id="supplier-rows"><tr><td colspan="5" class="empty">Loading suppliers…</td></tr></tbody></table></div>
+    </section>
+  </main>
+  <footer class="footer">Digital Pioneers Stockroom <span>Inventory, made clear.</span></footer>
+  <script src="/js/api.js"></script><script src="/js/suppliers.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Review and restock inventory">
+  <title>Inventory | Digital Pioneers Stockroom</title><link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/">Digital Pioneers<span>STOCKROOM</span></a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navigation" aria-label="Main navigation"><a href="/"><span class="nav-icon" aria-hidden="true">⌂</span>Overview</a><a href="/products.html"><span class="nav-icon" aria-hidden="true">▦</span>Products</a><a class="active" href="/inventory.html"><span class="nav-icon" aria-hidden="true">▤</span>Inventory</a><a href="/sales.html"><span class="nav-icon" aria-hidden="true">↗</span>Sales</a><a href="/alerts.html"><span class="nav-icon" aria-hidden="true">!</span>Stock alerts</a><a href="/suppliers.html"><span class="nav-icon" aria-hidden="true">♧</span>Suppliers</a></nav>
+  </header>
+  <main class="page">
+    <div class="page-heading"><div><p class="eyebrow">STOCK CONTROL</p><h1>Inventory</h1><p class="muted">Track quantities and record incoming stock.</p></div></div>
+    <div id="inventory-error" class="notice error" role="alert" hidden></div><div id="inventory-success" class="notice success" role="status" hidden></div>
+    <section class="panel">
+      <div class="panel-heading"><div><h2>Restock a product</h2><p class="muted">Restocks are recorded in the stock movement history.</p></div></div>
+      <form id="restock-form" class="form-grid">
+        <label class="wide">Product *<select name="productId" id="restock-product" required><option value="">Choose a product</option></select></label>
+        <label>Quantity to add *<input name="quantity" type="number" min="1" step="1" required></label>
+        <label>Note<input name="note" maxlength="500" placeholder="Optional reference or note"></label>
+        <div class="form-actions"><button class="button primary" type="submit">Record restock</button></div>
+      </form>
+    </section>
+    <section class="panel">
+      <div class="panel-heading"><div><h2>Current stock</h2><p class="muted">Stock levels update as sales are recorded.</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Product</th><th>SKU</th><th class="numeric">In stock</th><th class="numeric">Reorder at</th><th>Status</th></tr></thead><tbody id="inventory-rows"><tr><td colspan="5" class="empty">Loading inventory…</td></tr></tbody></table></div>
+    </section>
+    <section class="panel">
+      <div class="panel-heading"><div><h2>Stock movement history</h2><p class="muted">Recent receipts and sales</p></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Product</th><th>Type</th><th class="numeric">Quantity</th><th>Note</th><th>Date and time</th></tr></thead><tbody id="movement-rows"><tr><td colspan="5" class="empty">Loading stock movements…</td></tr></tbody></table></div>
+    </section>
+  </main>
+  <footer class="footer">Digital Pioneers Stockroom <span>Inventory, made clear.</span></footer>
+  <script src="/js/api.js"></script><script src="/js/inventory.js"></script>
+</body>
+</html>
