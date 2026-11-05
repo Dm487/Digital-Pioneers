@@ -17,7 +17,7 @@ Built with **Java 17, Javalin 5, SQLite, Maven, and Vanilla HTML, CSS, and JavaS
 | 1 | Moses Phiri | 2410103 |
 | 2 | Davies Mubambe | 2410052 |
 | 3 | David Chisenga | 2410348 |
-| 4 | [Fourth Member] | [Student ID] |
+| 4 | Kelvin Mumba | 2300294 |
 
 ---
 
